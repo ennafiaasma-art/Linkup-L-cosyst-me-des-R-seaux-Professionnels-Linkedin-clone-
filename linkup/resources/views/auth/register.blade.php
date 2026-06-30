@@ -2,7 +2,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 to-indigo-100 p-6">
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-10">
 
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-2">
             Créer un compte
@@ -10,7 +10,15 @@
         <p class="text-center text-gray-500 mb-8">
             Rejoignez-nous dès aujourd'hui
         </p>
-
+            @if ($errors->any())
+    <ul class="px-4 py-2 bg-red-100 border border-red-300 rounded-lg">
+        @foreach ($errors->all() as $error)
+            <li class="my-2 text-red-600">
+                {{ $error }}
+            </li>
+        @endforeach
+    </ul>
+@endif
         <form action="{{ route('register') }}" method="POST" class="space-y-5">
             @csrf
 
@@ -87,6 +95,7 @@
                     Se connecter
                 </a>
             </p>
+
         </form>
 
     </div>

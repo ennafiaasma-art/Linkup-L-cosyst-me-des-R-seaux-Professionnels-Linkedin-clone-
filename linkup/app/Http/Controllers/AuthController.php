@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -22,10 +23,13 @@ class AuthController extends Controller
     'password ' => 'required |string|min:8|confirmed'
 
     ]);
-    User::create($validated);
+    $user=User::create($validated);
+    Auth::login($user);
+
+    return redirect()->route('"feed');
 
     }
-     public function Login(){
+     public function login(){
 
 
     }
