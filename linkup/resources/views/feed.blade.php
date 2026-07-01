@@ -33,7 +33,8 @@
                     </p>
 
                     <span class="text-xs text-gray-400">
-                        {{ $post->created_at->diffForHumans() }}
+                       
+
                     </span>
 
                 </div>
