@@ -1,4 +1,6 @@
+
 @extends('layouts.app')
+
 
 <header class="w-full bg-white shadow border-b border-gray-200">
     <nav class="w-full flex justify-end items-center gap-3 px-4 py-4">
@@ -11,6 +13,10 @@
            class="px-5 py-2 rounded-full bg-blue-600 text-white">
             Register
         </a>
+
+        <span class="border-r-2 pr-2">
+            hi there ,{{ Auth::user()->name }}
+        </span>
 
         <form action="{{ route('logout') }}" method="POST">
             @csrf
