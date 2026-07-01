@@ -9,3 +9,5 @@ Route::get('/login',[AuthController::class, 'showLogin'])->name("show.login");
 
 Route::post('/register',[AuthController::class, 'Register'])->name('register');
 Route::post('/login',[AuthController::class, 'Login'])->name("login");
+
+Route::post('/logout',[AuthController::class, 'logout'])->name("logout");

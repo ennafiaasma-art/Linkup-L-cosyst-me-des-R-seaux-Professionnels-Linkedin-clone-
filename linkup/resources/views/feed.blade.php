@@ -21,6 +21,11 @@
            class="px-5 py-2 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition duration-200 shadow">
             Register
         </a>
+        <form action="{{ route('logout') }}" method="Post" class="m-0">
+            @csrf
+            <button  class="px-5 py-2 rounded-full bg-red-600 text-white font-medium hover:bg-blue-700 transition duration-200 shadow">
+            >logout</button>
+        </form>
 
     </nav>
 </header>
