@@ -1,34 +1,36 @@
 @extends('layouts.app')
 
+<header class="w-full bg-white shadow border-b border-gray-200">
+    <nav class="w-full flex justify-end items-center gap-3 px-4 py-4">
+        <a href="{{ route('show.login') }}"
+           class="px-5 py-2 rounded-full bg-blue-400">
+            Login
+        </a>
+
+        <a href="{{ route('show.register') }}"
+           class="px-5 py-2 rounded-full bg-blue-600 text-white">
+            Register
+        </a>
+
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button class="px-5 py-2 rounded-full bg-red-600 text-white">
+                Logout
+            </button>
+        </form>
+    </nav>
+</header>
 
 
 @section('content')
+
 
 <div class="max-w-3xl mx-auto space-y-6">
 
     @forelse($posts as $post)
 
     <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition duration-300">
-<header class="bg-white shadow-sm border-b border-gray-200">
-    <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-end items-center gap-4">
 
-        <a href="{{ route('show.login') }}"
-           class="px-5 py-2 rounded-full text-gray-700 font-medium   bg-blue-400 hover:bg-gray-100 transition duration-200">
-            Login
-        </a>
-
-        <a href="{{ route('show.register') }}"
-           class="px-5 py-2 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition duration-200 shadow">
-            Register
-        </a>
-        <form action="{{ route('logout') }}" method="Post" class="m-0">
-            @csrf
-            <button  class="px-5 py-2 rounded-full bg-red-600 text-white font-medium hover:bg-blue-700 transition duration-200 shadow">
-            >logout</button>
-        </form>
-
-    </nav>
-</header>
 
         <div class="flex items-center justify-between p-5">
 
@@ -53,9 +55,7 @@
                         @endif
                     </p>
 
-                    <span class="text-xs text-gray-400">
-                        {{ $post->created_at->diffForHumans() }}
-                    </span>
+
 
                 </div>
 

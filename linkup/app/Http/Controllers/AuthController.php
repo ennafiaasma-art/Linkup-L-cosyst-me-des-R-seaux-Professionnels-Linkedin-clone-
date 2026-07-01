@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
@@ -35,10 +37,20 @@ class AuthController extends Controller
 
     return redirect()->route('feed');
 }
-     public function login(){
-
-
+     public function login(Request $request){
+         $validated =  $request->validate([
+                     'password' => 'required|string',
+                    'email' => 'required|email|'
+            ]);
+         if( Auth::attempt($validated)){
+            $request->session()->regenerate();
+            return redirect()->route('feed');
+         }
+         throw ValidationException::withMessages([
+            'credentials'=>'sorry ,incorrect credentials'
+         ]);
     }
+
     public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();

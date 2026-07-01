@@ -26,7 +26,7 @@
                     type="email"
                     name="email"
                     required
-                    value="{{  email }}"
+                    value="{{  old('email') }}"
                     placeholder="Entrez votre e-mail"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
                 >
@@ -73,6 +73,17 @@
             >
                 Se connecter
             </button>
+
+
+            @if ($errors->any())
+    <ul class="px-4 py-2 bg-red-100 border border-red-300 rounded-lg">
+        @foreach ($errors->all() as $error)
+            <li class="my-2 text-red-600">
+                {{ $error }}
+            </li>
+        @endforeach
+    </ul>
+@endif
 
             <!-- Inscription -->
             <div class="text-center">
