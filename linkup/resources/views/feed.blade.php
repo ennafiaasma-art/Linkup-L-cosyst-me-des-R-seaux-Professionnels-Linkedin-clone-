@@ -21,7 +21,80 @@
     @endauth
 
 
+
+
+    @auth
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 mb-6">
+
+    <form action="{{ route('posts.store') }}" method="POST">
+        @csrf
+
+        <textarea
+            name="content"
+            rows="4"
+            placeholder="What's on your mind?"
+            class="w-full border border-gray-300 rounded-xl p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+
+        @error('content')
+            <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+        @enderror
+
+        <div class="flex justify-end mt-4">
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
+                Publish
+            </button>
+        </div>
+
+    </form>
+
+</div>
+@endauth
+
     <!-- Posts -->
+     @auth
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 mb-6">
+
+    <form action="{{ route('posts.store') }}" method="POST">
+        @csrf
+
+        <div class="flex gap-3">
+
+            <img
+                src="{{ Auth::user()->image_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}"
+                class="w-12 h-12 rounded-full object-cover border">
+
+            <div class="flex-1">
+
+                <textarea
+                    name="content"
+                    rows="3"
+                    placeholder="What's on your mind?"
+                    class="w-full border border-gray-300 rounded-xl p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+
+                @error('content')
+                    <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                @enderror
+
+                <div class="flex justify-end mt-3">
+
+                    <button
+                        type="submit"
+                        class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+                        Publish
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+@endauth
 
     <div class="space-y-6">
 
