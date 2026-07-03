@@ -24,7 +24,7 @@ class PostController extends Controller
 
         Post::create([
             'user_id' => auth()->id(),
-            'content' => $request->content,
+            'content' => $request->input('content'),
         ]);
 
         return redirect()->route('feed')
@@ -32,14 +32,7 @@ class PostController extends Controller
     }
 
     // Formulaire de modification
-    public function edit(Post $post)
-    {
-        if ($post->user_id != auth()->id()) {
-            abort(403);
-        }
 
-        return view('posts.edit', compact('post'));
-    }
 
     // Modifier un post
     public function update(Request $request, Post $post)
@@ -53,7 +46,7 @@ class PostController extends Controller
         ]);
 
         $post->update([
-            'content' => $request->content,
+            'content' => $request->input('content'),
         ]);
 
         return redirect()->route('feed')

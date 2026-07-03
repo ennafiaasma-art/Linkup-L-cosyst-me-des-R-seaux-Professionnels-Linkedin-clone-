@@ -132,25 +132,82 @@
                         </div>
 
                     </div>
+  <!-- modigier et supprimer -->
+                    @auth
+    @if(Auth::id() == $post->user_id)
 
-                    <button
-                        class="w-9 h-9 rounded-full hover:bg-gray-100 text-gray-500 transition">
-                        ⋮
-                    </button>
+<div class="flex gap-2">
+
+  <a href="{{ route('feed', ['edit' => $post->id]) }}"
+   class="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
+    Modifier
+</a>
+
+    <form action="{{ route('posts.destroy',$post->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+
+        <button
+            class="px-3 py-1 bg-red-600 text-white rounded-lg">
+            Supprimer
+        </button>
+    </form>
+
+</div>
+
+@endif
+@endauth
 
                 </div>
 
 
                 <!-- Content -->
+<!-- Content -->
 
-                <div class="px-5 pb-5">
+<div class="px-5 pb-5">
 
-                    <p class="text-gray-700 leading-7 whitespace-pre-line">
-                        {{ $post->content }}
-                    </p>
+@if(request('edit') == $post->id)
 
-                </div>
+<form action="{{ route('posts.update', $post->id) }}" method="POST">
 
+    @csrf
+    @method('PUT')
+
+    <textarea
+        name="content"
+        rows="4"
+        class="w-full border border-gray-300 rounded-lg p-3">{{ old('content', $post->content) }}</textarea>
+
+    @error('content')
+        <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+    @enderror
+
+    <div class="flex gap-2 mt-3">
+
+        <button
+            type="submit"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+            Enregistrer
+        </button>
+
+        <a href="{{ route('feed') }}"
+           class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg">
+            Annuler
+        </a>
+
+    </div>
+
+</form>
+
+@else
+
+<p class="text-gray-700 leading-7 whitespace-pre-line">
+    {{ $post->content }}
+</p>
+
+@endif
+
+</div>
 
                 <!-- Actions -->
 
