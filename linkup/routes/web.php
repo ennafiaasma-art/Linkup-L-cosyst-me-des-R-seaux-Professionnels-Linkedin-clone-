@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
 
 Route::get('/feed', [PostController::class, 'index'])->name('feed');
 
@@ -23,4 +24,7 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
+    Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])
+    ->middleware('auth')
+    ->name('posts.like');
 });
