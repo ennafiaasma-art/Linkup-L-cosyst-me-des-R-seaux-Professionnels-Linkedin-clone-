@@ -189,11 +189,20 @@
                 <div class="border-t border-gray-200">
 
                     <div class="grid grid-cols-3">
+                        @php
+$liked = $post->likes->contains('user_id', auth()->id());
+@endphp
 
-                        <button
-                            class="py-3 hover:bg-gray-100 transition font-medium text-gray-600">
-                            👍 Like
-                        </button>
+                      <form action="{{ route('posts.like', $post) }}" method="POST">
+    @csrf
+
+   <button
+        class="{{ $liked ? 'text-blue-600 font-bold' : 'text-gray-600' }}">
+        {{ $liked ? '👍 Liked' : '👍 Like' }}
+    </button>
+</form>
+
+<p>{{ $post->likes()->count() }} Likes</p>
 
                         <button
                         type="sbmit"
