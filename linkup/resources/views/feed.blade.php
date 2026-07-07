@@ -23,34 +23,7 @@
 
 
 
-    @auth
-<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 mb-6">
 
-    <form action="{{ route('posts.store') }}" method="POST">
-        @csrf
-
-        <textarea
-            name="content"
-            rows="4"
-            placeholder="What's on your mind?"
-            class="w-full border border-gray-300 rounded-xl p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-
-        @error('content')
-            <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
-        @enderror
-
-        <div class="flex justify-end mt-4">
-            <button
-                type="submit"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
-                Publish
-            </button>
-        </div>
-
-    </form>
-
-</div>
-@endauth
 
     <!-- Posts -->
      @auth
@@ -82,7 +55,7 @@
                     <button
                         type="submit"
                         class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
-                        Publish
+                        Publier
                     </button>
 
                 </div>
@@ -118,13 +91,15 @@
                             <h2 class="font-semibold text-gray-800">
                                 {{ $post->user->name }}
                             </h2>
+                           
+
 
                             <p class="text-sm text-gray-500">
 
                                 {{ $post->user->headline }}
 
                                 @if($post->user->company)
-                                    • {{ $post->user->company }}
+                                   {{ $post->user->company }}
                                 @endif
 
                             </p>
@@ -132,7 +107,7 @@
                         </div>
 
                     </div>
-  <!-- modigier et supprimer -->
+  <!-- modifier et supprimer -->
                     @auth
     @if(Auth::id() == $post->user_id)
 
@@ -161,7 +136,7 @@
                 </div>
 
 
-                <!-- Content -->
+
 <!-- Content -->
 
 <div class="px-5 pb-5">
