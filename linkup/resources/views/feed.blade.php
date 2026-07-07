@@ -91,7 +91,7 @@
                             <h2 class="font-semibold text-gray-800">
                                 {{ $post->user->name }}
                             </h2>
-                           
+
 
 
                             <p class="text-sm text-gray-500">
@@ -196,6 +196,7 @@
                         </button>
 
                         <button
+                        type="sbmit"
                             class="py-3 hover:bg-gray-100 transition font-medium text-gray-600">
                             💬 Comment
                         </button>
