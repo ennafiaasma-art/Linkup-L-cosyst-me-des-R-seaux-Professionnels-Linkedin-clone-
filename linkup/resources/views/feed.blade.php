@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    use Illuminate\Support\Str;
+@endphp
 
 <div class="max-w-3xl mx-auto px-4">
 
@@ -11,12 +14,15 @@
                 Welcome back 👋
             </h1>
 
+
+
             <p class="text-gray-500 mt-2">
                 Bonjour
                 <span class="font-semibold text-blue-600">
                     {{ Auth::user()->name }}
                 </span>
             </p>
+
         </div>
     @endauth
 
@@ -91,6 +97,11 @@
                             <h2 class="font-semibold text-gray-800">
                                 {{ $post->user->name }}
                             </h2>
+                                    @if($post->user->is_open_to_work)
+                <span class="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full">
+                    🟢 Open To Work
+                </span>
+            @endif
 
 
 
@@ -103,6 +114,7 @@
                                 @endif
 
                             </p>
+                        {{ $post->created_at->diffForHumans() }}
 
                         </div>
 
@@ -177,10 +189,12 @@
 @else
 
 <p class="text-gray-700 leading-7 whitespace-pre-line">
-    {{ $post->content }}
+
+    {{ str::limit($post->content,150,'.... voir plus')}}
 </p>
 
 @endif
+
 
 </div>
 
@@ -190,19 +204,21 @@
 
                     <div class="grid grid-cols-3">
                         @php
-$liked = $post->likes->contains('user_id', auth()->id());
-@endphp
+                    $liked = $post->likes->contains('user_id', auth()->id());
+                    @endphp
 
-                      <form action="{{ route('posts.like', $post) }}" method="POST">
-    @csrf
+                     <form action="{{ route('posts.like', $post) }}" method="POST">
+                        @csrf
 
-   <button
-        class="{{ $liked ? 'text-blue-600 font-bold' : 'text-gray-600' }}">
-        {{ $liked ? '👍 Liked' : '👍 Like' }}
-    </button>
-</form>
+                    <button
+                            class="{{ $liked ? 'text-blue-600 font-bold' : 'text-gray-600' }}">
+                            {{ $liked ? '👍 ' : '👍 ' }}
+                            {{ $post->likes()->count() }}
+                            like
+                        </button>
+                    </form>
 
-<p>{{ $post->likes()->count() }} Likes</p>
+
 
                         <button
                         type="sbmit"
