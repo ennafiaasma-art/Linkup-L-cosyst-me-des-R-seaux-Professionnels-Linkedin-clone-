@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
@@ -28,3 +29,6 @@ Route::middleware('auth')->group(function () {
     ->middleware('auth')
     ->name('posts.like');
 });
+Route::post('/posts/{post}/comments',[CommentController::class,'store'])
+->middleware('auth')
+->name('comments.store');

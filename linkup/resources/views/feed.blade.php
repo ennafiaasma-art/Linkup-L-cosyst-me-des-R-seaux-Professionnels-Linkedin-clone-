@@ -220,11 +220,43 @@
 
 
 
-                        <button
-                        type="sbmit"
-                            class="py-3 hover:bg-gray-100 transition font-medium text-gray-600">
-                            💬 Comment
-                        </button>
+                        <div id="comments-{{ $post->id }}" class="hidden border-t p-4">
+
+    @auth
+    <form action="{{ route('comments.store', $post) }}" method="POST">
+        @csrf
+
+        <div class="flex gap-2">
+            <input
+                type="text"
+                name="content"
+                placeholder="Écrire un commentaire..."
+                class="flex-1 border rounded-lg px-3 py-2">
+
+            <button class="bg-blue-600 text-white px-4 rounded-lg">
+                Envoyer
+            </button>
+        </div>
+    </form>
+    @endauth
+
+    <div class="mt-4 space-y-3">
+        @foreach($post->comments as $comment)
+
+            <div class="bg-gray-100 rounded-lg p-3">
+                <strong>{{ $comment->user->name }}</strong>
+
+                <p>{{ $comment->content }}</p>
+
+                <small class="text-gray-500">
+                    {{ $comment->created_at->diffForHumans() }}
+                </small>
+            </div>
+
+        @endforeach
+    </div>
+
+</div>
 
                         <button
                             class="py-3 hover:bg-gray-100 transition font-medium text-gray-600">
