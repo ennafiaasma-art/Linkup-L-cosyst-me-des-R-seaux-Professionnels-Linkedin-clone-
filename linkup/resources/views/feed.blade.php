@@ -82,14 +82,16 @@
 
                         <div class="flex items-center gap-3">
 
-                            <img src="{{ $post->user->image_url ?? 'https://ui-avatars.com/api/?name=' . urlencode($post->user->name) }}"
-                                alt="{{ $post->user->name }}" class="w-12 h-12 rounded-full object-cover border">
-
+                            <a href="{{ route('users.show', $post->user) }}">
+                                <img src="{{ $post->user->image_url ?? 'https://ui-avatars.com/api/?name=' . urlencode($post->user->name) }}"
+                                    class="w-12 h-12 rounded-full object-cover border">
+                            </a>
                             <div>
 
-                                <h2 class="font-semibold text-gray-800">
+                                <a href="{{ route('users.show', $post->user) }}"
+                                    class="font-semibold text-gray-800 hover:text-blue-600">
                                     {{ $post->user->name }}
-                                </h2>
+                                </a>
                                 @if($post->user->is_open_to_work)
                                     <span class="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full">
                                         🟢 Open To Work
@@ -186,7 +188,7 @@
                     </div>
 
                     <!-- Actions -->
-                     <!-- like -->
+                    <!-- like -->
 
                     <div class="border-t border-gray-200">
 
@@ -218,12 +220,13 @@
                                         @csrf
 
                                         <div class="flex items-center gap-3">
-                                             <img src="{{ Auth::user()->image_url ?? 'https://ui-avatars.com/api/?name='.urlencode(Auth::user()->name) }}"
-                 class="w-10 h-10 rounded-full">
+                                            <img src="{{ Auth::user()->image_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}"
+                                                class="w-10 h-10 rounded-full">
                                             <input type="text" name="content" placeholder="Écrire un commentaire..."
                                                 class="flex-1 rounded-full border px-4 py-2 focus:ring-2 focus:ring-blue-500">
 
-                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full transition">
+                                            <button
+                                                class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full transition">
                                                 Envoyer
                                             </button>
                                         </div>
@@ -234,66 +237,66 @@
                                     @foreach($post->comments as $comment)
 
                                         <div class=" flex gap-3">
-                                         <img src="{{ $comment->user->image_url ?? 'https://ui-avatars.com/api/?name='.urlencode($comment->user->name) }}"
-                 class="w-10 h-10 rounded-full">
+                                            <img src="{{ $comment->user->image_url ?? 'https://ui-avatars.com/api/?name=' . urlencode($comment->user->name) }}"
+                                                class="w-10 h-10 rounded-full">
 
-            <div class="bg-white shadow-sm rounded-2xl px-4 py-3 flex-1">
+                                            <div class="bg-white shadow-sm rounded-2xl px-4 py-3 flex-1">
 
-                <div class="flex justify-between"></div>
-                                            <strong>{{ $comment->user->name }}</strong>
+                                                <div class="flex justify-between"></div>
+                                                <strong>{{ $comment->user->name }}</strong>
 
-                                            <p class="mt-1 text-gray-700">{{ $comment->content }}</p>
+                                                <p class="mt-1 text-gray-700">{{ $comment->content }}</p>
 
-                                            <small class="text-gray-500">
-                                                {{ $comment->created_at->diffForHumans() }}
-                                            </small>
-                                        </div>
+                                                <small class="text-gray-500">
+                                                    {{ $comment->created_at->diffForHumans() }}
+                                                </small>
+                                            </div>
 
                                     @endforeach
+                                    </div>
+
                                 </div>
+
+
+
+
+
 
                             </div>
 
-
-
-
-
-
                         </div>
- 
-                    </div>
 
-                </div>
+                    </div>
 
             @empty
 
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-10 text-center">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-10 text-center">
 
-                    <div class="text-5xl mb-4">
-                        📢
+                        <div class="text-5xl mb-4">
+                            📢
+                        </div>
+
+                        <h2 class="text-xl font-bold text-gray-700">
+                            Aucun post disponible
+                        </h2>
+
+                        <p class="text-gray-500 mt-2">
+                            Soyez la première personne à partager quelque chose avec la communauté.
+                        </p>
+
                     </div>
 
-                    <h2 class="text-xl font-bold text-gray-700">
-                        Aucun post disponible
-                    </h2>
+                @endforelse
 
-                    <p class="text-gray-500 mt-2">
-                        Soyez la première personne à partager quelque chose avec la communauté.
-                    </p>
-
-                </div>
-
-            @endforelse
+            </div>
 
         </div>
-
-    </div>
-    <script>
-        function toggleComments(postId) {
-            document
-                .getElementById('comments-' + postId)
-                .classList.toggle('hidden');
-        }
-    </script>
+        <script>
+            function toggleComments(postId) {
+                document
+                    .getElementById('comments-' + postId)
+                    .classList.toggle('hidden');
+            }
+        </script>
 
 @endsection
