@@ -44,7 +44,17 @@ Route::middleware('auth')->group(function () {
 Route::post('/posts/{post}/comments',[CommentController::class,'store'])
 ->middleware('auth')
 ->name('comments.store');
-// PROFILE
+// PROFILE commentaire
 Route::get('/users/{user}', [UserController::class, 'show'])
     ->name('users.show');
+    // profile user connecte
 
+Route::middleware('auth')->group(function () {
+
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::put('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+});
