@@ -6,7 +6,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 
+// affiche post
+
 Route::get('/feed', [PostController::class, 'index'])->name('feed');
+
+// authentification
+
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
 Route::post('/register', [AuthController::class, 'Register'])->name('register');
@@ -16,6 +21,9 @@ Route::post('/login', [AuthController::class, 'Login'])->name('login');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// publication
+
+
 
 Route::middleware('auth')->group(function () {
 
@@ -24,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    // likes
 
     Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])
     ->middleware('auth')

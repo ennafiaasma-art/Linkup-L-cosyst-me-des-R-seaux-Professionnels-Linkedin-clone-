@@ -12,11 +12,12 @@ public function user()
 {
     return $this->belongsTo(User::class);
 }
-    //
+    //like
     public function likes()
 {
     return $this->hasMany(Like::class);
 }
+// comment
 public function comments()
 {
     return $this->hasMany(Comment::class);
