@@ -205,9 +205,13 @@
                             <!-- comment -->
                             <button type="button" onclick="toggleComments({{ $post->id }})"
                                 class="flex-1 py-2.5 rounded-lg hover:bg-slate-50 transition font-medium text-sm text-slate-500 flex items-center justify-center gap-2">
-                                💬 Commenter
+
+
+                                    <span class="hidden sm:inline">{{ $post->comments->count() }}</span>
+                                     💬 Commenter
                             </button>
                         </div>
+
 
                         <div id="comments-{{ $post->id }}" class="hidden border-t border-slate-100 bg-slate-50/60 p-4">
 
@@ -232,13 +236,16 @@
                             <div class="mt-4 space-y-3">
                                 @foreach($post->comments as $comment)
 
+
                                     <div class="flex gap-3">
                                         <img src="{{ $comment->user->image_url ?? 'https://ui-avatars.com/api/?name=' . urlencode($comment->user->name) }}"
                                             class="w-10 h-10 rounded-full object-cover ring-2 ring-white">
 
+
                                         <div class="bg-white shadow-sm rounded-2xl px-4 py-3 flex-1">
 
                                             <strong class="text-sm text-slate-800">{{ $comment->user->name }}</strong>
+
 
                                             <p class="mt-1 text-slate-700 text-sm leading-6">{{ $comment->content }}</p>
 
