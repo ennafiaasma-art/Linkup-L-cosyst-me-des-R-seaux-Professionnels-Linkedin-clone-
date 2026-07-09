@@ -10,7 +10,11 @@ class PostController extends Controller
     // Afficher tous les posts
     public function index()
     {
-        $posts = Post::with('user')->latest()->get();
+        $posts = Post::with('user')->orderByDesc('is_pinned')->latest()
+        ->get();
+
+
+
 
         return view('feed', compact('posts'));
     }
