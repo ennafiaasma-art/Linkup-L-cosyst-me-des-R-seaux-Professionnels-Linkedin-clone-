@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\UserController;
 
 // affiche post
 
@@ -43,3 +44,7 @@ Route::middleware('auth')->group(function () {
 Route::post('/posts/{post}/comments',[CommentController::class,'store'])
 ->middleware('auth')
 ->name('comments.store');
+// PROFILE
+Route::get('/users/{user}', [UserController::class, 'show'])
+    ->name('users.show');
+
