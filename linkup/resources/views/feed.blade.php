@@ -186,10 +186,11 @@
                     </div>
 
                     <!-- Actions -->
+                     <!-- like -->
 
                     <div class="border-t border-gray-200">
 
-                        <div class="grid grid-cols-3">
+                        <div class="flex justify-around items-center py-2 border-t">
                             @php
                                 $liked = $post->likes->contains('user_id', auth()->id());
                             @endphp
@@ -204,19 +205,25 @@
                                 </button>
                             </form>
 
+                            <!-- comment -->
+                            <button type="button" onclick="toggleComments({{ $post->id }})"
+                                class="py-3 hover:bg-gray-100 transition font-medium text-gray-600">
+                                💬 Commenter
+                            </button>
 
-
-                            <div id="comments-{{ $post->id }}" class="hidden border-t p-4">
+                            <div id="comments-{{ $post->id }}" class="hidden border-t bg-gray-50 p-4">
 
                                 @auth
                                     <form action="{{ route('comments.store', $post) }}" method="POST">
                                         @csrf
 
-                                        <div class="flex gap-2">
+                                        <div class="flex items-center gap-3">
+                                             <img src="{{ Auth::user()->image_url ?? 'https://ui-avatars.com/api/?name='.urlencode(Auth::user()->name) }}"
+                 class="w-10 h-10 rounded-full">
                                             <input type="text" name="content" placeholder="Écrire un commentaire..."
-                                                class="flex-1 border rounded-lg px-3 py-2">
+                                                class="flex-1 rounded-full border px-4 py-2 focus:ring-2 focus:ring-blue-500">
 
-                                            <button class="bg-blue-600 text-white px-4 rounded-lg">
+                                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full transition">
                                                 Envoyer
                                             </button>
                                         </div>
@@ -226,10 +233,16 @@
                                 <div class="mt-4 space-y-3">
                                     @foreach($post->comments as $comment)
 
-                                        <div class="bg-gray-100 rounded-lg p-3">
+                                        <div class=" flex gap-3">
+                                         <img src="{{ $comment->user->image_url ?? 'https://ui-avatars.com/api/?name='.urlencode($comment->user->name) }}"
+                 class="w-10 h-10 rounded-full">
+
+            <div class="bg-white shadow-sm rounded-2xl px-4 py-3 flex-1">
+
+                <div class="flex justify-between"></div>
                                             <strong>{{ $comment->user->name }}</strong>
 
-                                            <p>{{ $comment->content }}</p>
+                                            <p class="mt-1 text-gray-700">{{ $comment->content }}</p>
 
                                             <small class="text-gray-500">
                                                 {{ $comment->created_at->diffForHumans() }}
@@ -244,12 +257,10 @@
 
 
 
-                            <button class="py-3 hover:bg-gray-100 transition font-medium text-gray-600">
-                                📤 Share
-                            </button>
+
 
                         </div>
-
+ 
                     </div>
 
                 </div>
@@ -277,5 +288,12 @@
         </div>
 
     </div>
+    <script>
+        function toggleComments(postId) {
+            document
+                .getElementById('comments-' + postId)
+                .classList.toggle('hidden');
+        }
+    </script>
 
 @endsection

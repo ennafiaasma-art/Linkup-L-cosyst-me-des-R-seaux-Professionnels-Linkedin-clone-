@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     ->middleware('auth')
     ->name('posts.like');
 });
+// comment
 Route::post('/posts/{post}/comments',[CommentController::class,'store'])
 ->middleware('auth')
 ->name('comments.store');
