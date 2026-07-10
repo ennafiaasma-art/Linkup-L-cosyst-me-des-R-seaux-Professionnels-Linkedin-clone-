@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;
 
 // affiche post
 
@@ -48,7 +49,7 @@ Route::post('/posts/{post}/comments',[CommentController::class,'store'])
 // PROFILE commentaire
 Route::get('/users/{user}', [UserController::class, 'show'])
     ->name('users.show');
-    // profile user connecte
+    // profile user connecteet update profile
 
 Route::middleware('auth')->group(function () {
 
@@ -58,4 +59,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
 
+// following
+
+
+Route::post('/users/{user}/follow', [FollowController::class, 'store'])
+    ->middleware('auth')
+    ->name('users.follow');
+
 });
+// INFOLLOW
+Route::post('/users/{user}/follow', [FollowController::class, 'toggle'])
+    ->middleware('auth')
+    ->name('users.follow');

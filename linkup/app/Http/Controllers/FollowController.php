@@ -18,4 +18,28 @@ class FollowController extends Controller
 
         return back();
     }
+   
+
+public function toggle(User $user)
+{
+    if ($user->id == auth()->id()) {
+        return back();
+    }
+
+    $authUser = auth()->user();
+
+    if ($authUser->following()->where('following_id', $user->id)->exists()) {
+
+        // Unfollow
+        $authUser->following()->detach($user->id);
+
+    } else {
+
+        // Follow
+        $authUser->following()->attach($user->id);
+
+    }
+
+    return back();
+}
 }
